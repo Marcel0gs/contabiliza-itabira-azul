@@ -1,0 +1,388 @@
+/* ==========================================================================
+   Contabiliza — variante azul-marinho
+   Mesma paleta neutra do site principal, mas com o acento na cor da marca
+   pública dela: o logo azul-marinho que aparece no perfil comercial do
+   WhatsApp e no Google. Comparar com a versão dourada (site/) antes de
+   escolher uma — não manter as duas depois da decisão.
+   ========================================================================== */
+
+:root {
+  --azul:        #2f6690;
+  --azul-escuro: #143352;   /* usar quando precisar de contraste em texto */
+  --azul-claro:  #e6edf4;
+  --estrela:     #d9a531;   /* estrelas de avaliação seguem a convenção do Google, não a marca */
+  --carvao:      #2a2724;
+  --cinza:       #5f5952;
+  --creme:       #faf8f5;
+  --branco:      #ffffff;
+  --borda:       #e2e6ea;
+  --zap:         #25d366;
+
+  --largura:  1120px;
+  --raio:     8px;
+  --sombra:   0 1px 3px rgba(42, 39, 36, .06), 0 8px 24px rgba(42, 39, 36, .06);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--branco);
+  color: var(--carvao);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--azul-escuro); }
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 .75rem; letter-spacing: -.015em; }
+h1 { font-size: clamp(2rem, 4.5vw, 3.1rem); }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); }
+h3 { font-size: 1.15rem; }
+p  { margin: 0 0 1.15rem; }
+
+.wrap { max-width: var(--largura); margin: 0 auto; padding: 0 1.5rem; }
+
+/* O cabeçalho é fixo e cobriria o topo da seção ao clicar num link do menu.
+   Isso reserva a altura dele no destino da âncora. */
+section[id] { scroll-margin-top: 84px; }
+.sr {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* --- marcador de pendência -------------------------------------------- */
+/* Tudo que ainda precisa ser confirmado com a cliente fica visível assim.
+   Isso é proposital: mostra que o site foi feito com os dados reais dela
+   e que o resto se preenche junto, em vez de ser chutado. */
+.placeholder {
+  background: #fff6d6;
+  border-bottom: 2px dotted #c9a227;
+  padding: 0 .2em;
+  font-style: italic;
+}
+
+/* --- cabeçalho --------------------------------------------------------- */
+.topo {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, .94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--borda);
+}
+.topo__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; min-height: 72px;
+}
+/* [SUBSTITUIR] tratamento tipográfico provisório.
+   Pedir à Janaína o arquivo vetorial da logo AZUL-MARINHO (a do perfil
+   comercial do WhatsApp e do Google), não a dourada da parede. Não recriar. */
+.marca {
+  font-size: 1.3rem; font-weight: 700; letter-spacing: .16em;
+  color: var(--azul-escuro); text-decoration: none; text-transform: uppercase;
+  white-space: nowrap;
+}
+.marca span {
+  display: block; font-size: .5rem; letter-spacing: .38em;
+  color: var(--cinza); font-weight: 500; margin-top: -2px;
+}
+.nav { display: flex; align-items: center; gap: 1.75rem; }
+.nav a { color: var(--carvao); text-decoration: none; font-size: .95rem; }
+.nav a:hover { color: var(--azul-escuro); }
+.nav a.btn, .nav a.btn:hover { color: var(--branco); }
+@media (max-width: 860px) { .nav__links { display: none; } }
+
+/* Em tela estreita, marca + botão de WhatsApp somavam mais que a largura do
+   celular e empurravam a página inteira para o lado. Encolher os dois é o que
+   mantém a home sem rolagem horizontal em 360-390px. */
+@media (max-width: 430px) {
+  .wrap { padding: 0 1.15rem; }
+  .topo__inner { gap: .75rem; }
+  .marca { font-size: 1.05rem; letter-spacing: .1em; }
+  .marca span { font-size: .44rem; letter-spacing: .3em; }
+  .topo .btn { padding: .7rem 1rem; font-size: .9rem; }
+}
+
+/* --- botões ------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--azul-escuro); color: var(--branco);
+  padding: .8rem 1.5rem; border-radius: var(--raio);
+  text-decoration: none; font-weight: 600; font-size: .95rem;
+  border: 1px solid var(--azul-escuro);
+  transition: background .15s ease;
+}
+.btn:hover { background: #0d2740; }
+.btn--vazado { background: transparent; color: var(--azul-escuro); }
+.btn--vazado:hover { background: var(--azul-claro); }
+
+/* --- hero -------------------------------------------------------------- */
+.hero { padding: clamp(3rem, 7vw, 5.5rem) 0; background: var(--creme); }
+.hero__grid {
+  display: grid; grid-template-columns: 1.05fr .95fr;
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+@media (max-width: 880px) { .hero__grid { grid-template-columns: 1fr; } }
+.hero__olho {
+  color: var(--azul-escuro); font-size: .78rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; margin-bottom: 1rem;
+}
+.hero__sub { font-size: 1.1rem; color: var(--cinza); max-width: 46ch; }
+.hero__acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
+
+/* Foto: usa background-image para degradar sem ícone quebrado caso o
+   arquivo ainda não exista. [SUBSTITUIR] pelas fotos em alta da cliente. */
+.foto {
+  border-radius: var(--raio); box-shadow: var(--sombra);
+  background: linear-gradient(135deg, var(--azul-claro), #cdd9e3);
+  background-size: cover; background-position: center;
+  aspect-ratio: 4 / 3;
+}
+.foto--escritorio { background-image: url("../img/escritorio.jpg"); aspect-ratio: 5 / 6; }
+
+/* --- prova social ------------------------------------------------------ */
+.prova { border-bottom: 1px solid var(--borda); }
+.prova__inner {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: center; gap: 1rem 2.5rem; padding: 1.5rem 0;
+  text-align: center;
+}
+.prova__nota { font-size: 1.6rem; font-weight: 700; color: var(--azul-escuro); }
+.prova__estrelas { color: var(--estrela); letter-spacing: .1em; }
+.prova__texto { color: var(--cinza); font-size: .95rem; margin: 0; }
+
+/* --- seções ------------------------------------------------------------ */
+.secao { padding: clamp(3rem, 6vw, 5rem) 0; }
+.secao--creme { background: var(--creme); }
+.secao__cabeca { max-width: 60ch; margin-bottom: 2.5rem; }
+.secao__olho {
+  color: var(--azul-escuro); font-size: .78rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; margin-bottom: .6rem;
+}
+
+/* --- cards de serviço --------------------------------------------------- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+@media (max-width: 940px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .cards { grid-template-columns: 1fr; } }
+
+.card {
+  display: block; padding: 1.6rem; background: var(--branco);
+  border: 1px solid var(--borda); border-radius: var(--raio);
+  text-decoration: none; color: inherit;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.card:hover { border-color: var(--azul); transform: translateY(-2px); }
+.card h3 { color: var(--carvao); }
+.card p { color: var(--cinza); font-size: .95rem; margin: 0; }
+.card__seta { color: var(--azul-escuro); font-weight: 600; font-size: .9rem; margin-top: 1rem; display: block; }
+.card--inativo { opacity: .65; pointer-events: none; }
+
+/* --- faixa de perguntas -------------------------------------------------- */
+.faixa {
+  background: var(--carvao); color: #e8e2d9;
+  padding: 0 0 clamp(3rem, 6vw, 5rem);
+}
+.faixa .secao__cabeca { margin-top: clamp(3rem, 6vw, 4.5rem); }
+.faixa .secao__olho { color: var(--azul); }
+.faixa h2 { color: var(--branco); }
+.faixa .secao__cabeca p { color: #b8b0a6; }
+
+/* Fita rolante. Decorativa — as perguntas existem como texto real abaixo. */
+.fita {
+  overflow: hidden; border-bottom: 1px solid var(--borda);
+  background: var(--azul-claro); padding: .9rem 0;
+}
+.fita__trilho {
+  display: flex; width: max-content;
+  animation: fita 46s linear infinite;
+}
+.fita__grupo { display: flex; flex-shrink: 0; }
+.fita__grupo b {
+  font-size: .88rem; font-weight: 600; color: var(--azul-escuro);
+  white-space: nowrap; padding: 0 1.4rem;
+  display: flex; align-items: center; gap: 1.4rem;
+}
+.fita__grupo b::before { content: "•"; color: var(--azul); }
+@keyframes fita {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.perguntas { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+@media (max-width: 880px) { .perguntas { grid-template-columns: 1fr; } }
+
+.pergunta {
+  background: #322e2a; border: 1px solid #46413b;
+  border-radius: var(--raio); padding: 1.1rem 1.35rem;
+  align-self: start;
+}
+.pergunta summary {
+  cursor: pointer; font-weight: 600; color: var(--branco);
+  list-style: none; display: flex; justify-content: space-between; gap: 1rem;
+}
+.pergunta summary::-webkit-details-marker { display: none; }
+.pergunta summary::after {
+  content: "+"; color: var(--azul); font-weight: 400; font-size: 1.35rem;
+  line-height: 1; flex: 0 0 auto;
+}
+.pergunta[open] summary::after { content: "−"; }
+.pergunta summary:focus-visible { outline: 2px solid var(--azul); outline-offset: 3px; }
+.pergunta p {
+  margin: .9rem 0 0; font-size: .96rem; color: #cfc8bf;
+}
+.pergunta a { color: var(--azul-claro); }
+.pergunta strong { color: var(--branco); }
+
+/* --- quem faz ----------------------------------------------------------- */
+.sobre {
+  display: grid; grid-template-columns: 1.1fr .9fr;
+  gap: clamp(2rem, 5vw, 3.5rem); align-items: start;
+}
+@media (max-width: 880px) { .sobre { grid-template-columns: 1fr; } }
+
+/* Retrato + nome. Foto pequena de propósito: a original tem 158px e ampliar
+   deixaria borrado. Trocar por uma em alta quando ela mandar. */
+.pessoa {
+  display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.75rem;
+}
+.pessoa__foto {
+  width: 132px; height: 132px; border-radius: 50%;
+  object-fit: cover; flex: 0 0 auto;
+  border: 3px solid var(--branco); box-shadow: var(--sombra);
+}
+.pessoa__nome { display: block; font-size: 1.1rem; }
+.pessoa__papel {
+  display: block; font-size: .82rem; color: var(--cinza);
+  text-transform: uppercase; letter-spacing: .1em; margin-top: .2rem;
+}
+
+/* Citação publicada pela própria Janaína no Instagram. O peso visual é
+   proposital: é a voz dela, não texto de agência. */
+.citacao {
+  margin: 0; padding: 1.75rem;
+  background: var(--creme); border: 1px solid var(--borda);
+  border-radius: var(--raio); border-left: 3px solid var(--azul);
+}
+.citacao blockquote { margin: 0; }
+.citacao blockquote p {
+  font-size: 1.08rem; line-height: 1.55; color: var(--carvao);
+}
+.citacao blockquote p:last-of-type { margin-bottom: 0; }
+.citacao figcaption {
+  margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--borda);
+  font-size: .88rem; color: var(--cinza); font-weight: 600;
+}
+.citacao figcaption span { font-weight: 400; }
+
+/* --- depoimentos -------------------------------------------------------- */
+.depos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+@media (max-width: 760px) { .depos { grid-template-columns: 1fr; } }
+.depo {
+  background: var(--branco); border: 1px solid var(--borda);
+  border-radius: var(--raio); padding: 1.6rem;
+}
+.depo blockquote { margin: 0 0 1rem; font-size: 1.02rem; }
+.depo footer { font-size: .88rem; color: var(--cinza); }
+.depo__estrelas { color: var(--estrela); letter-spacing: .08em; margin-bottom: .6rem; }
+
+/* --- contato ------------------------------------------------------------ */
+.contato__grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 2.5rem; }
+@media (max-width: 880px) { .contato__grid { grid-template-columns: 1fr; } }
+.dados { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
+.dados li { display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: start; }
+.dados strong { display: block; font-size: .82rem; text-transform: uppercase; letter-spacing: .1em; color: var(--cinza); font-weight: 600; }
+.dados .ico { color: var(--azul-escuro); font-size: 1.1rem; line-height: 1.5; }
+.mapa {
+  border: 1px solid var(--borda); border-radius: var(--raio);
+  overflow: hidden; min-height: 340px; background: var(--azul-claro);
+}
+.mapa iframe { display: block; width: 100%; height: 100%; min-height: 340px; border: 0; }
+
+
+/* --- rodapé -------------------------------------------------------------- */
+.rodape { background: var(--carvao); color: #cfc8bf; padding: 3rem 0 2rem; font-size: .93rem; }
+.rodape a { color: var(--azul-claro); }
+.rodape__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; }
+@media (max-width: 760px) { .rodape__grid { grid-template-columns: 1fr; } }
+.rodape h3 { color: var(--branco); font-size: .82rem; text-transform: uppercase; letter-spacing: .12em; }
+.rodape ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.rodape ul a { text-decoration: none; }
+.rodape ul a:hover { text-decoration: underline; }
+.rodape__fim {
+  border-top: 1px solid #46413b; margin-top: 2.5rem; padding-top: 1.5rem;
+  font-size: .85rem; color: #9a938a;
+}
+.rodape .marca { color: var(--azul-claro); }
+
+/* --- botão flutuante de WhatsApp ----------------------------------------- */
+/* Sempre https://wa.me/ — o esquema whatsapp:// não abre em navegador desktop */
+.zap-flutua {
+  position: fixed; right: 20px; bottom: 20px; z-index: 90;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--zap); display: grid; place-items: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .22);
+  transition: transform .15s ease;
+}
+.zap-flutua:hover { transform: scale(1.06); }
+.zap-flutua svg { width: 30px; height: 30px; fill: #fff; }
+
+/* --- conteúdo de página interna ------------------------------------------ */
+.artigo { max-width: 72ch; }
+.artigo h2 { margin-top: 2.5rem; }
+.artigo ul { padding-left: 1.2rem; }
+.artigo li { margin-bottom: .5rem; }
+.migalha { font-size: .88rem; color: var(--cinza); padding: 1.25rem 0 0; }
+.migalha a { color: var(--cinza); }
+
+.chamada {
+  background: var(--creme); border-left: 3px solid var(--azul);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  padding: 1.5rem; margin: 2.5rem 0;
+}
+.chamada p:last-child { margin-bottom: 0; }
+
+/* --- quiz de qualificação -------------------------------------------------- */
+/* Base: templates/componentes/quiz-qualificacao.html, adaptado à paleta clara */
+.qq__opcoes {
+  border: 0; margin: 0; padding: 0; display: grid; gap: .625rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 760px) { .qq__opcoes { grid-template-columns: 1fr; } }
+.qq__opcao {
+  display: grid; grid-template-columns: auto 1fr; gap: .875rem; align-items: start;
+  padding: .95rem 1.1rem; background: var(--branco);
+  border: 1px solid var(--borda); border-radius: var(--raio); cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+.qq__opcao:hover { border-color: var(--azul); }
+.qq__opcao input { position: absolute; opacity: 0; width: 0; height: 0; }
+.qq__marca {
+  width: 20px; height: 20px; border: 1px solid var(--borda); border-radius: 3px;
+  display: grid; place-items: center; margin-top: 2px; background: var(--branco);
+}
+.qq__marca::after {
+  content: ""; width: 10px; height: 6px;
+  border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translate(1px, -1px) scale(0);
+  transition: transform .15s ease;
+}
+.qq__opcao:has(input:checked) { background: var(--azul-claro); border-color: var(--azul); }
+.qq__opcao:has(input:checked) .qq__marca { background: var(--azul-escuro); border-color: var(--azul-escuro); }
+.qq__opcao:has(input:checked) .qq__marca::after { transform: rotate(-45deg) translate(1px, -1px) scale(1); }
+.qq__opcao:has(input:focus-visible) { outline: 2px solid var(--azul-escuro); outline-offset: 2px; }
+.qq__label { line-height: 1.45; font-size: .96rem; }
+.qq__resultado {
+  margin-top: 1.5rem; padding: 1.5rem; background: var(--branco);
+  border: 1px solid var(--azul); border-radius: var(--raio); max-width: 640px;
+}
+.qq__resultado[hidden] { display: none; }
+.qq__resultado-texto { margin-bottom: 1.25rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}

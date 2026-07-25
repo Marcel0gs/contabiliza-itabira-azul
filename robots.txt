@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marcel0gs.github.io/contabiliza-itabira-azul/sitemap.xml
