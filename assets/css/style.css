@@ -385,4 +385,12 @@ section[id] { scroll-margin-top: 84px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
+
+  /* Sem movimento, a fita vira um bloco estático e centrado — não uma tira
+     congelada cortada na margem direita.
+     Não usar `overflow-x: auto` aqui: deixa uma barra de rolagem cinza visível
+     logo abaixo da fita, e o conjunto parece defeito, não escolha. */
+  .fita__trilho { animation: none; width: 100%; }
+  .fita__grupo  { flex: 1 1 auto; flex-wrap: wrap; justify-content: center; row-gap: .45rem; }
+  .fita__grupo + .fita__grupo { display: none; }
 }
